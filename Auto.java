@@ -29,4 +29,13 @@ public class Auto {
 
 
 
+    public static void main(String[] args) {
+    Auto a = new Auto("Skoda", "Fabia", 2005);
+
+    a.displayInfo();
+    a.startEngine();
+    a.stopEngine();
+}
+
+
 }
