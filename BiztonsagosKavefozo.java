@@ -1,18 +1,52 @@
-class CoffeeMachine {
+class Kavefozo {
 
-    private double price;
+    private String marka;
+    private double ar;
+    private double mennyiseg;
+    private double kapacitas;
 
-    public void setPrice(double price) {
+    public Kavefozo(String marka, double ar, double kapacitas) {
+        this.marka = marka;
+        this.kapacitas = kapacitas;
+        this.mennyiseg = kapacitas;
+        setAr(ar);
+    }
 
-        if (price < 0) {
-            System.out.println("Az ár nem lehet negatív!");
+    public void setAr(double ar) {
+        if (ar >= 0) {
+            this.ar = ar;
         } else {
-            this.price = price;
+            System.out.println("Az ár nem lehet negatív!");
         }
     }
 
-    public double getPrice() {
-        return price;
+    public double getAr() {
+        return ar;
+    }
+
+    public double getMennyiseg() {
+        return mennyiseg;
+    }
+
+    public double vasarol(double dl) {
+        if (dl > mennyiseg) {
+            return -1;
+        }
+        mennyiseg -= dl;
+        return dl * ar;
+    }
+
+    public double feltolt() {
+        double betoltott = kapacitas - mennyiseg;
+        mennyiseg = kapacitas;
+        return betoltott;
+    }
+
+    public String toString() {
+        return "Marka: " + marka +
+               ", Ar: " + ar +
+               ", Mennyiseg: " + mennyiseg +
+               ", Kapacitas: " + kapacitas;
     }
 }
 
@@ -20,11 +54,22 @@ public class BiztonsagosKavefozo {
 
     public static void main(String[] args) {
 
-        CoffeeMachine cm = new CoffeeMachine();
+        Kavefozo kf = new Kavefozo("Omnia", 500, 1000);
 
-        cm.setPrice(150);
-        System.out.println("A kávéfőző ára: " + cm.getPrice());
+        System.out.println(kf);
 
-        //cm.setPrice(-50); // hibás érték tesztelése
+        double fizetendo = kf.vasarol(10);
+        if (fizetendo == -1) {
+            System.out.println("Nincs eleg kave a tartalyban!");
+        } else {
+            System.out.println("Fizetendo osszeg: " + fizetendo);
+        }
+
+        System.out.println("Maradek kave: " + kf.getMennyiseg());
+
+        double feltoltott = kf.feltolt();
+        System.out.println("Feltoltott mennyiseg: " + feltoltott);
+
+        System.out.println(kf);
     }
 }
